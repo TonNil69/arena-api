@@ -1,7 +1,7 @@
 version: '2'
 services:
-  proxy:
-    container_name: proxy.local
+  proxy.local.arena.com.br:
+    container_name: proxy.local.arena.com.br
     image: jwilder/nginx-proxy:latest
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock:ro"
@@ -9,14 +9,47 @@ services:
     ports:
       - "80:80"
     restart: unless-stopped
+    networks:
+      main:
+        aliases:
+          - proxy.local.arena.com.br
 
-  stakearena.local.com:
-    container_name: stakearena.local.com
-    image: centos/nodejs-6-centos7
+  stakearena-api.local.arena.com.br:
+    container_name: stakearena-api.local.arena.com.br
+    image: node:12.6.0-stretch
+    working_dir: "/opt/app-root/src/"
     volumes:
-      - .:/opt/app-root/src:rw
-    command: .s2i/run
+      - "./api/:/opt/app-root/src/:rw"
+    ports:
+      - 80
     environment:
-      VIRTUAL_HOST: 'stakearena.local.com'
+      VIRTUAL_HOST: 'stakearena-api.local.arena.com.br'
       DEV_MODE: 'true'
-      SERVER_PORT: 8080
+      SERVER_PORT: 80
+    command: .s2i/bin/run
+    networks:
+      main:
+        aliases:
+          - stakearena-api.local.arena.com.br
+  
+  stakearena.local.arena.com.br:
+    container_name: stakearena.local.arena.com.br
+    image: node:12.6.0-stretch
+    working_dir: "/opt/app-root/src/"
+    volumes:
+      - "./spa/:/opt/app-root/src/:rw"
+    ports:
+      - 80
+    environment:
+      VIRTUAL_HOST: 'stakearena.local.arena.com.br'
+      DEV_MODE: 'true'
+      SERVER_PORT: 80
+    # command: .s2i/bin/run
+    command: sleep 5d
+    networks:
+      main:
+        aliases:
+          - stakearena.local.arena.com.br
+  
+networks:
+  main:
