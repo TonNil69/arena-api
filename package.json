@@ -1,0 +1,21 @@
+{
+  "name": "stake-arena-api",
+  "version": "1.0.0",
+  "description": "API para o projeto StakeArena",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://TonNil@bitbucket.org/TonNil/stake-arena-api.git"
+  },
+  "author": "TonNil69",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/TonNil/stake-arena-api#readme",
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1"
+  }
+}

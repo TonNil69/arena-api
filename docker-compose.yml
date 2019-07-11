@@ -1,0 +1,22 @@
+version: '2'
+services:
+  proxy:
+    container_name: proxy.local
+    image: jwilder/nginx-proxy:latest
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+      - "./proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro"
+    ports:
+      - "80:80"
+    restart: unless-stopped
+
+  stakearena.local.com:
+    container_name: stakearena.local.com
+    image: centos/nodejs-6-centos7
+    volumes:
+      - .:/opt/app-root/src:rw
+    command: .s2i/run
+    environment:
+      VIRTUAL_HOST: 'stakearena.local.com'
+      DEV_MODE: 'true'
+      SERVER_PORT: 8080
