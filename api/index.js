@@ -1,10 +1,11 @@
-var express = require('express')
-var app = express()
-var router = require('./src/router/router')
-require('dotenv').config()
+const express = require('express')
+const router = require('./src/router/router')
+const app = express()
 
-app.use('/', router)
+app.use(express.urlencoded({ extended: true }))
 
-app.listen(process.env.SERVER_PORT, function () {
+app.use('/api/', router)
+
+app.listen(process.env.SERVER_PORT, () => {
   console.log(`Servidor rodando com sucesso na URL: http://${process.env.VIRTUAL_HOST}`)
 });

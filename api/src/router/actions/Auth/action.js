@@ -6,7 +6,7 @@ router.use(function timeLog(req, res, next) {
 });
 
 router.get('/', function (req, res) {
-  res.send('TestHome')
+  res.send(req.body)
 });
 
 router.get('/about', function (req, res) {
