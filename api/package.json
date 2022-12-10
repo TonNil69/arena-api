@@ -16,7 +16,7 @@
   "homepage": "https://bitbucket.org/TonNil/stake-arena-api#readme",
   "dependencies": {
     "dotenv": "^8.0.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mongodb": "^3.3.4",
     "nodemon": "^1.19.4"
   },
